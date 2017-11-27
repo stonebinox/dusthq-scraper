@@ -14,7 +14,7 @@ app.controller("emails",function($scope,$compile,$http){
                 $scope.displayEmailList();
             }
             else{
-                $("#emaillist").html('<p>No email IDs found.</p>');
+                $("#emaillist").append('<p>No email IDs found.</p>');
             }
         },
         function error(response){
