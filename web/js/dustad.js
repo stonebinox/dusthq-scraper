@@ -32,7 +32,7 @@ app.controller("emails",function($scope,$compile,$http){
                 var ins=email.institute_master_idinstitute_master;
                 var inName=stripslashes(ins.institute_name);
                 if(validate(website)){
-                    website='<a href="'+website+'" target="_blank">'+website+'</a>';
+                    website='<a href="'+website+'" target="_blank">Website</a>';
                 }
                 else{
                     website='No website found';
