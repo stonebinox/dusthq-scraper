@@ -58,7 +58,7 @@ $app->get("/stanford",function() use($app){
     return $text;*/
     $json=json_encode($json);
     $json=json_decode($json,true);
-    return print_r($json);
+    return var_dump($json);
 });
 $app->run();
 ?>
