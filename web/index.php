@@ -57,17 +57,14 @@ $app->get("/stanford",function() use($app){
     }
     return $text;*/
     //$json=json_encode($json);
+    echo $json;
     $json=json_decode($json,true);
     $level=$json['ui'];
     $profiles=$level['keywordMatches'];
     for($i=0;$i<count($profiles);$i++)
     {
         $profile=$profiles[$i];
-        for($j=0;$j<count($profile);$j++)
-        {
-            print_r($profile);
-            echo "<br>";
-        }
+        
     }
     return "Done";
 });
