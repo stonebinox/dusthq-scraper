@@ -30,12 +30,12 @@ $app->before(function(Request $request) use($app){
 $app->get("/",function() use($app){
     $app['twig']->render("index.html.twig");
 });
-$app->get("/stanford/{page}",function($page) use($app){
+$app->get("/stanford/{page}/{search}",function($page,$search) use($app){
     require("../classes/instituteMaster.php");
     require("../classes/emailMaster.php");
     $email=new emailMaster;
     $chars='abcdefghijklmnopqrstuvwxyz';
-    $search='aab';
+//    $search='aac';
     $url='https://profiles.stanford.edu/proxy/api/cap/search/keyword?p='.$page.'&q='.$search.'&ps=10';
     $json=file_get_contents($url);
     $json=json_decode($json,true);
@@ -55,7 +55,7 @@ $app->get("/stanford/{page}",function($page) use($app){
         }
         echo "Moving onto the next page ...";
         $page+=1;
-        return $app->redirect("/stanford/".$page);
+        return $app->redirect("/stanford/".$page."/".$search);
     }
     else
     {
