@@ -44,13 +44,13 @@ $app->get("/institute/{insID}",function($insID) use($app){
         return $app->redirect("/get/".$insID);
     }
 });
-$app->get("/getEmails",function() use($app){
+$app->get("/getEmails",function(Request $request) use($app){
     if($app['session']->get("ins_id"))
     {
         require("../classes/instituteMaster.php");
         require("../classes/emailMaster.php");
         $email=new emailMaster;
-        $emails=$email->getEmails($app['session']->get("ins_id"));
+        $emails=$email->getEmails($app['session']->get("ins_id"),$request->get("offset"));
         if(is_array($emails))
         {
             return json_encode($emails);
