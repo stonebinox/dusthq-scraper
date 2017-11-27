@@ -46,6 +46,9 @@ app.controller("emails",function($scope,$compile,$http){
                     website='No website found';
                 }
                 var desc=nl2br(stripslashes(email.emailee_category));
+                if(!validate(desc)){
+                    desc="No description found.";
+                }
                 table+='<tr><td>'+email_id+'</td><td>'+name+'</td><td>'+website+'</td><td>'+desc+'</td></tr>';
             }
             table+='</tbody></table>';
