@@ -30,20 +30,20 @@ $app->before(function(Request $request) use($app){
 $app->get("/",function() use($app){
     $app['twig']->render("index.html.twig");
 });
-$app->get("/stanford",function() use($app){
+$app->get("/stanford/{page}",function($page) use($app){
     require("../classes/instituteMaster.php");
     require("../classes/emailMaster.php");
     $email=new emailMaster;
     $chars='abcdefghijklmnopqrstuvwxyz';
     $search='aaa';
-    $page=1;
-    for($p=$page;$p<=10;$p++)
+    $url='https://profiles.stanford.edu/proxy/api/cap/search/keyword?p='.$page.'&q='.$search.'&ps=10';
+    $json=file_get_contents($url);
+    $json=json_decode($json,true);
+    $level=$json['ui'];
+    $profiles=$level['keywordMatches'];
+    $noResults=trim($level['noResultsMessage']);
+    if(($noResults=="")||($noResults==NULL))
     {
-        $url='https://profiles.stanford.edu/proxy/api/cap/search/keyword?p='.$p.'&q='.$search.'&ps=10';
-        $json=file_get_contents($url);
-        $json=json_decode($json,true);
-        $level=$json['ui'];
-        $profiles=$level['keywordMatches'];
         for($i=0;$i<count($profiles);$i++)
         {
             $profile=$profiles[$i];
@@ -53,8 +53,14 @@ $app->get("/stanford",function() use($app){
             $response=$email->addEmail($emailID,$name,1);
             echo $response.'<br>';
         }
+        echo "Moving onto the next page ...";
+        $page+=1;
+        return $app->redirect("/stanford/".$page);
     }
-    return "Done";
+    else
+    {
+        return "Done";
+    }
 });
 $app->run();
 ?>
