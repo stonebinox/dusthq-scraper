@@ -35,7 +35,7 @@ $app->get("/stanford/{page}",function($page) use($app){
     require("../classes/emailMaster.php");
     $email=new emailMaster;
     $chars='abcdefghijklmnopqrstuvwxyz';
-    $search='aaa';
+    $search='aab';
     $url='https://profiles.stanford.edu/proxy/api/cap/search/keyword?p='.$page.'&q='.$search.'&ps=10';
     $json=file_get_contents($url);
     $json=json_decode($json,true);
