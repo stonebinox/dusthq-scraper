@@ -66,8 +66,8 @@ $app->get("/stanford",function() use($app){
         $name=trim(ucwords($profile['displayName']));
         $emailID=trim($profile['email']);
         $emailID=str_replace(" ","",$emailID);
-        echo $name.' '.$emailID.'<br>';
-
+        $response=$email->addEmail($emailID,$name,1);
+        echo $response;
     }
     return "Done";
 });

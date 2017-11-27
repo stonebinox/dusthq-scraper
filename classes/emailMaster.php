@@ -123,7 +123,7 @@ class emailMaster extends instituteMaster
             return "INVALID_INSTITUTE_ID";
         }
     }
-    function addEmail($email,$insID)
+    function addEmail($email,$name,$insID)
     {
         $insID=addslashes(htmlentities($insID));
         instituteMaster::__construct($insID);
@@ -132,17 +132,25 @@ class emailMaster extends instituteMaster
             $email=trim(strtolower(addslashes(htmlentities($email))));
             if(($email!="")&&($email!=NULL)&&(filter_var($email, FILTER_VALIDATE_EMAIL)))
             {
-                $em="SELECT idemail_master FROM email_master WHERE stat='1' AND email_id='$email' AND institute_master_idinstitute_master='$insID'";
-                $em=$app['db']->fetchAssoc($em);
-                if(($em=="")||($em==NULL))
+                $name=trim(ucwords(addslashes(htmlentities($name))));
+                if(($name!="")&&($name!=NULL))
                 {
-                    $in="INSERT INTO email_master (timestamp,email_id,institute_master_idinstitute_master) VALUES (NOW(),'$email','$insID')";
-                    $in=$app['db']->executeQuery($in);
-                    return "EMAIL_ADDED";
+                    $em="SELECT idemail_master FROM email_master WHERE stat='1' AND email_id='$email' AND institute_master_idinstitute_master='$insID'";
+                    $em=$app['db']->fetchAssoc($em);
+                    if(($em=="")||($em==NULL))
+                    {
+                        $in="INSERT INTO email_master (timestamp,email_id,institute_master_idinstitute_master,emailee_name) VALUES (NOW(),'$email','$insID','$name')";
+                        $in=$app['db']->executeQuery($in);
+                        return "EMAIL_ADDED";
+                    }
+                    else
+                    {
+                        return "EMAIL_ALREADY_ADDED";
+                    }
                 }
                 else
                 {
-                    return "EMAIL_ALREADY_ADDED";
+                    return "INVALID_NAME";
                 }
             }
             else
