@@ -1,4 +1,7 @@
 var app=angular.module("dustad",[]);
+app.config(function($interpolateProvider){
+    $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
+});
 app.controller("emails",function($scope,$compile,$http){
     $scope.emailList=[];
     $scope.offset=0;
