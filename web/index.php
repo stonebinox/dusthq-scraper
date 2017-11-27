@@ -30,7 +30,7 @@ $app->before(function(Request $request) use($app){
 $app->get("/",function() use($app){
     $app['twig']->render("index.html.twig");
 });
-$app->get("get/{insID}",function($insID) use($app){
+$app->get("/get/{insID}",function($insID) use($app){
     $app['session']->set("ins_id",$insID);
     return $app->redirect("/institute/".$insID);
 });
