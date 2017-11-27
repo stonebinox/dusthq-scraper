@@ -125,6 +125,7 @@ class emailMaster extends instituteMaster
     }
     function addEmail($email,$name,$insID)
     {
+        $app=$this->app;
         $insID=addslashes(htmlentities($insID));
         instituteMaster::__construct($insID);
         if($this->instituteValid)
