@@ -37,37 +37,22 @@ $app->get("/stanford",function() use($app){
     $chars='abcdefghijklmnopqrstuvwxyz';
     $search='aaa';
     $page=1;
-    $url='https://profiles.stanford.edu/proxy/api/cap/search/keyword?p='.$page.'&q='.$search.'&ps=10';
-    $json=file_get_contents($url);
-    /*$e=explode("@",$json);
-    for($i=0;$i<count($e);$i+=2)
+    for($p=$page;$p<=10;$p++)
     {
-        $part=$e[$i];
-        $rev=strrev($part);
-        $e2=explode('"',$rev);
-        $first=strrev(trim($e2[0]));
-        $second=$e[$i+1];
-        $e2=explode('"',$second);
-        $second=trim($e2[0]);
-        $email=$first.'@'.$second;
-        if(strpos($email,' ')==false)
+        $url='https://profiles.stanford.edu/proxy/api/cap/search/keyword?p='.$p.'&q='.$search.'&ps=10';
+        $json=file_get_contents($url);
+        $json=json_decode($json,true);
+        $level=$json['ui'];
+        $profiles=$level['keywordMatches'];
+        for($i=0;$i<count($profiles);$i++)
         {
-            
+            $profile=$profiles[$i];
+            $name=trim(ucwords($profile['displayName']));
+            $emailID=trim($profile['email']);
+            $emailID=str_replace(" ","",$emailID);
+            $response=$email->addEmail($emailID,$name,1);
+            echo $response.'<br>';
         }
-    }
-    return $text;*/
-    //$json=json_encode($json);
-    $json=json_decode($json,true);
-    $level=$json['ui'];
-    $profiles=$level['keywordMatches'];
-    for($i=0;$i<count($profiles);$i++)
-    {
-        $profile=$profiles[$i];
-        $name=trim(ucwords($profile['displayName']));
-        $emailID=trim($profile['email']);
-        $emailID=str_replace(" ","",$emailID);
-        $response=$email->addEmail($emailID,$name,1);
-        echo $response;
     }
     return "Done";
 });
