@@ -24,7 +24,7 @@ class emailMaster extends instituteMaster
     {
         if($this->email_id!=NULL)
         {
-            $app=$this->app['db'];
+            $app=$this->app;
             $emailID=$this->email_id;
             $em="SELECT institute_master_idinstitute_master FROM email_master WHERE stat='1' AND idemail_master='$emailID'";
             $em=$app['db']->fetchAssoc($em);
