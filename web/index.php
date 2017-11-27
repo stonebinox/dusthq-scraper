@@ -59,7 +59,8 @@ $app->get("/stanford",function() use($app){
     //$json=json_encode($json);
     $json=json_decode($json,true);
     $level=$json['ui'];
-    return var_dump($level);
+    $profiles=$level['keywordMatches'];
+    return var_dump($profiles);
 });
 $app->run();
 ?>
