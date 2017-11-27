@@ -1,5 +1,4 @@
 <?php
-
 ini_set('display_errors', 1);
 require_once __DIR__.'/../vendor/autoload.php';
 $app = require __DIR__.'/../src/app.php';
@@ -16,9 +15,9 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
     'db.options' => array(
       'driver' => 'pdo_mysql',
-      'dbname' => 'heroku_d79883d9aa66a0a',
-      'user' => 'b46d8bdcf97357',
-      'password' => '8fdecc7f ',
+      'dbname' => 'heroku_9def66b1566b6eb',
+      'user' => 'b40c70c7aa1f54',
+      'password' => '9e17afc9',
       'host'=> "us-cdbr-iron-east-05.cleardb.net",
     )
 ));
@@ -30,6 +29,36 @@ $app->before(function(Request $request) use($app){
 });
 $app->get("/",function() use($app){
     $app['twig']->render("index.html.twig");
+});
+$app->get("/stanford",function() use($app){
+    require("../classes/instituteMaster.php");
+    require("../classes/emailMaster.php");
+    $email=new emailMaster;
+    $chars='abcdefghijklmnopqrstuvwxyz';
+    $search='aaa';
+    $page=1;
+    $url='https://profiles.stanford.edu/proxy/api/cap/search/keyword?p='.$page.'&q='.$search.'&ps=10';
+    $json=file_get_contents($url);
+    /*$e=explode("@",$json);
+    for($i=0;$i<count($e);$i+=2)
+    {
+        $part=$e[$i];
+        $rev=strrev($part);
+        $e2=explode('"',$rev);
+        $first=strrev(trim($e2[0]));
+        $second=$e[$i+1];
+        $e2=explode('"',$second);
+        $second=trim($e2[0]);
+        $email=$first.'@'.$second;
+        if(strpos($email,' ')==false)
+        {
+            
+        }
+    }
+    return $text;*/
+    $json=json_encode($json);
+    $json=json_decode($json,true);
+    return print_r($json);
 });
 $app->run();
 ?>
