@@ -5,6 +5,7 @@ app.config(function($interpolateProvider){
 app.controller("emails",function($scope,$compile,$http){
     $scope.emailList=[];
     $scope.offset=0;
+    $scope.emailsCount=0;
     $scope.getEmails=function(){
         $http.get("../getEmails?offset="+$scope.offset)
         .then(function success(response){
@@ -63,5 +64,21 @@ app.controller("emails",function($scope,$compile,$http){
                 $("#loadmore").css("display","none");
             }
         }
+    };
+    $scope.getEmailsCount=function(){
+        $http.get("../getEmailsCount")
+        .then(function success(response){
+            response=response.data;
+            if(!isNaN(response)){
+                response=parseInt(response);
+                $scope.emailsCount=response;
+            }
+            else{
+                console.log(response);
+            }            
+        },
+        function error(response){
+            console.log(response);
+        });
     };
 });

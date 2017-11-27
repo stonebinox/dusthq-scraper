@@ -62,6 +62,19 @@ $app->get("/getEmails",function(Request $request) use($app){
         return "PAGE_NOT_FOUND";
     }
 });
+$app->get("/getEmailsCount",function() use($app){
+    if($app['session']->get("ins_id")){
+        require("../classes/instituteMaster.php");
+        require("../classes/emailMaster.php");
+        $email=new emailMaster;
+        $emailCount=$email->countEmailIDs($app['session']->get("ins_id"));
+        return $emailCount;
+    }
+    else
+    {
+        return "INVALID_PARAMETERS";
+    }
+});
 $app->get("/stanford/{page}/{search}",function($page,$search) use($app){
     require("../classes/instituteMaster.php");
     require("../classes/emailMaster.php");

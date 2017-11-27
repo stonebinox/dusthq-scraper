@@ -1,8 +1,8 @@
 {% extends "layout.html" %}
 {% block content %}
 <body ng-app="dustad">
-    <div class="container" ng-controller="emails" ng-init="getEmails();">
-        <h1 class="text-center">Emails <span id="insname"></span></h1>
+    <div class="container" ng-controller="emails" ng-init="emailsCount=0;getEmails();">
+        <h1 class="text-center">Emails <span id="insname"></span> ({[{emailsCount}]})</h1>
         <hr>
         <div class="text-center">
             <div class="btn-group">

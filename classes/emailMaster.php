@@ -165,7 +165,23 @@ class emailMaster extends instituteMaster
         {
             return "INVALID_INSTITUTE_ID";
         }
-
+    }
+    function countEmails($insID)
+    {
+        $app=$this->app;
+        $insID=addslashes(htmlentities($insID));
+        instituteMaster::__construct($insID);
+        if($this->instituteValid)
+        {
+            $em="SELECT COUNT(idemail_master) FROM email_master WHERE stat='1' AND institute_master_idinstitute_master='$insID'";
+            $em=$app['db']->fetchAssoc($em);
+            $em=$em[0];
+            return $em;
+        }
+        else
+        {
+            return "INVALID_INSTITUTE_ID";
+        }
     }
 }
 ?>
