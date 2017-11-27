@@ -30,6 +30,38 @@ $app->before(function(Request $request) use($app){
 $app->get("/",function() use($app){
     $app['twig']->render("index.html.twig");
 });
+$app->get("get/{insID}",function($insID) use($app){
+    $app['session']->set("ins_id",$insID);
+    return $app->redirect("/institute/".$insID);
+});
+$app->get("/institute/{insID}",function($insID) use($app){
+    if($app['session']->get("ins_id"))
+    {
+        return $app['twig']->render("ins.html.twig");
+    }
+    else
+    {
+        return $app->redirect("/get/".$insID);
+    }
+});
+$app->get("/getEmails",function() use($app){
+    if($app['session']->get("ins_id"))
+    {
+        require("../classes/instituteMaster.php");
+        require("../classes/emailMaster.php");
+        $email=new emailMaster;
+        $emails=$email->getEmails($app['session']->get("ins_id"));
+        if(is_array($emails))
+        {
+            return json_encode($emails);
+        }
+        return $emails;
+    }
+    else
+    {
+        return "PAGE_NOT_FOUND";
+    }
+});
 $app->get("/stanford/{page}/{search}",function($page,$search) use($app){
     require("../classes/instituteMaster.php");
     require("../classes/emailMaster.php");

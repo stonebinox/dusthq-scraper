@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block content %}
+<body ng-app="dustad">
+    <div class="container" ng-controller="emails" ng-init="getEmails()">
+        <h1 class="text-center">Emails <span id="insname"></span></h1>
+        <div class="well" id="emaillist"></div>
+    </div>
+    <div class="container-fluid">
+        <div id="myModal" class="modal fade" role="dialog"></div>
+    </div>
+</body>
+{% endblock %}
