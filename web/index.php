@@ -58,7 +58,8 @@ $app->get("/stanford",function() use($app){
     return $text;*/
     //$json=json_encode($json);
     $json=json_decode($json,true);
-    return var_dump($json);
+    $level=$json['ui'];
+    return var_dump($level);
 });
 $app->run();
 ?>
