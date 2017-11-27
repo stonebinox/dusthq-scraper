@@ -49,8 +49,11 @@ $app->get("/stanford/{page}/{search}",function($page,$search) use($app){
             $profile=$profiles[$i];
             $name=trim(ucwords($profile['displayName']));
             $emailID=trim($profile['email']);
+            $website=trim($profile['webPage']);
+            $text=$profile['shortTitle'];
+            $desc=trim($text['text']);
             $emailID=str_replace(" ","",$emailID);
-            $response=$email->addEmail($emailID,$name,1);
+            $response=$email->addEmail($emailID,$name,$website,$desc,1);
             echo $response.'<br>';
         }
         echo "Moving onto the next page ...";

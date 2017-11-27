@@ -123,7 +123,7 @@ class emailMaster extends instituteMaster
             return "INVALID_INSTITUTE_ID";
         }
     }
-    function addEmail($email,$name,$insID)
+    function addEmail($email,$name,$website,$desc,$insID)
     {
         $app=$this->app;
         $insID=addslashes(htmlentities($insID));
@@ -136,11 +136,13 @@ class emailMaster extends instituteMaster
                 $name=trim(ucwords(addslashes(htmlentities($name))));
                 if(($name!="")&&($name!=NULL))
                 {
+                    $website=trim(strtolower(addslashes(htmlentities($website))));
+                    $desc=trim(addslashes(htmlentities($desc)));
                     $em="SELECT idemail_master FROM email_master WHERE stat='1' AND email_id='$email' AND institute_master_idinstitute_master='$insID'";
                     $em=$app['db']->fetchAssoc($em);
                     if(($em=="")||($em==NULL))
                     {
-                        $in="INSERT INTO email_master (timestamp,email_id,institute_master_idinstitute_master,emailee_name) VALUES (NOW(),'$email','$insID','$name')";
+                        $in="INSERT INTO email_master (timestamp,email_id,institute_master_idinstitute_master,emailee_name,emailee_website,emailee_category) VALUES (NOW(),'$email','$insID','$name','$website','$desc')";
                         $in=$app['db']->executeQuery($in);
                         return "EMAIL_ADDED";
                     }
