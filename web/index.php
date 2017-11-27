@@ -57,14 +57,17 @@ $app->get("/stanford",function() use($app){
     }
     return $text;*/
     //$json=json_encode($json);
-    echo $json;
     $json=json_decode($json,true);
     $level=$json['ui'];
     $profiles=$level['keywordMatches'];
     for($i=0;$i<count($profiles);$i++)
     {
         $profile=$profiles[$i];
-        
+        $name=trim(ucwords($profile['displayName']));
+        $emailID=trim($profile['email']);
+        $emailID=str_replace(" ","",$emailID);
+        echo $name.' '.$emailID.'<br>';
+
     }
     return "Done";
 });
