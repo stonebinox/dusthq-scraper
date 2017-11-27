@@ -4,6 +4,9 @@
     <div class="container" ng-controller="emails" ng-init="getEmails()">
         <h1 class="text-center">Emails <span id="insname"></span></h1>
         <div class="well" id="emaillist"></div>
+        <div class="text-center">
+            <button type="button" class="btn btn-primary" id="loadmore" style="display:none;" ng-click="getEmails()">Load more</button>
+        </div>
     </div>
     <div class="container-fluid">
         <div id="myModal" class="modal fade" role="dialog"></div>

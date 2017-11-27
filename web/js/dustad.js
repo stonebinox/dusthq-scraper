@@ -22,7 +22,12 @@ app.controller("emails",function($scope,$compile,$http){
     $scope.displayEmailList=function(){
         if(validate($scope.emailList)){
             var emails=$scope.emailList;
-            var table='<table class="table"><thead><tr><th>Email ID</th><th>Name</th><th>Website</th><th>Description</th></thead><tbody>';
+            if($scope.offset==0){
+                var table='<table class="table"><thead><tr><th>Email ID</th><th>Name</th><th>Website</th><th>Description</th></thead><tbody>';
+            }
+            else{
+                var table='<table class="table"><tbody>';
+            }
             for(var i=0;i<emails.length;i++){
                 var email=emails[i];
                 var emailID=email.idemail_master;
@@ -41,8 +46,16 @@ app.controller("emails",function($scope,$compile,$http){
                 table+='<tr><td>'+email_id+'</td><td>'+name+'</td><td>'+website+'</td><td>'+desc+'</td></tr>';
             }
             table+='</tbody></table>';
-            $("#emaillist").html(table);
+            $("#emaillist").append(table);
             $("#insname").html("for "+inName);
+            if(emails.length>=100){
+                $scope.offset+=100;
+                $("#loadmore").css("display","block");
+            }
+            else
+            {
+                $("#loadmore").css("display","none");
+            }
         }
     };
 });
