@@ -66,7 +66,7 @@ $app->get("/stanford",function() use($app){
         $profile=$profiles[$i];
         break;
     }
-    return var_dump($profile);
+    return var_dump($profiles[$i]);
 });
 $app->run();
 ?>
