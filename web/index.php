@@ -63,9 +63,12 @@ $app->get("/stanford",function() use($app){
     for($i=0;$i<count($profiles);$i++)
     {
         $profile=$profiles[$i];
-        break;
+        for($j=0;$j<count($profile);$j++)
+        {
+            echo $profile[$j]."<br>";
+        }
     }
-    return var_dump($profiles[$i]);
+    return "Done";
 });
 $app->run();
 ?>
