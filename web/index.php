@@ -1,4 +1,5 @@
 <?php
+//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
 ini_set('display_errors', 1);
 require_once __DIR__.'/../vendor/autoload.php';
 $app = require __DIR__.'/../src/app.php';

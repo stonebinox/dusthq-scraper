@@ -166,7 +166,7 @@ class emailMaster extends instituteMaster
             return "INVALID_INSTITUTE_ID";
         }
     }
-    function countEmails($insID)
+    function countEmailIDs($insID)
     {
         $app=$this->app;
         $insID=addslashes(htmlentities($insID));
