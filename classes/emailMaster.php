@@ -175,6 +175,7 @@ class emailMaster extends instituteMaster
         {
             $em="SELECT COUNT(idemail_master) FROM email_master WHERE stat='1' AND institute_master_idinstitute_master='$insID'";
             $em=$app['db']->fetchAssoc($em);
+            $em=json_encode($em);
             return $em;
         }
         else
