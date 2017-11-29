@@ -105,7 +105,7 @@ $app->get("/stanford/{page}/{search}",function($page,$search) use($app){
         echo "Moving onto the next page ...";
         $page+=1;
         return '<script type="text/javascript">
-        window.location="stanford/'.$page.'/'.$search.'";
+        window.location="https://dusthq-scraper.herokuapp.com/stanford/'.$page.'/'.$search.'";
         </script>';
         return $app->redirect("/stanford/".$page."/".$search);
     }
@@ -138,7 +138,7 @@ $app->get("/stanford/{page}/{search}",function($page,$search) use($app){
         $first=$alpha[$firstpos];
         $search=$first.$mid.$last;
         return '<script type="text/javascript">
-        window.location="stanford/1/'.$search.'";
+        window.location="https://dusthq-scraper.herokuapp.com/stanford/1/'.$search.'";
         </script>';
         return $app->redirect("/stanford/1/".$search);
     }
