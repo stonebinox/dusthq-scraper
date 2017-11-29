@@ -108,7 +108,33 @@ $app->get("/stanford/{page}/{search}",function($page,$search) use($app){
     }
     else
     {
-        return "Done";
+        $alpha='abcdefghijklmnopqrstuvwxyz';
+        $sp=str_split($search);
+        $last=$sp[2];
+        $mid=$sp[1];
+        $first=$sp[0];
+        $pos=strpos($last,$alpha)+1;
+        $midpos=strpos($mid,$alplha);
+        $firstpos=strpos($first,$alpha);
+        if($pos>=strlen($alpha))
+        {
+            $pos=0;
+            $midpos+=1;
+            if($midpos>=strlen($alpha))
+            {
+                $midpos=0;
+                $firstpos+=1;
+                if($firstpos>=strlen($alpha))
+                {
+                    return "DONE";
+                }
+            }
+        }
+        $last=$alpha[$pos];
+        $mid=$alpha[$midpos];
+        $first=$alpha[$firstpos];
+        $search=$first.$mid.$last;
+        return $app->redirect("/stanford/1/".$search);
     }
 });
 $app->run();
