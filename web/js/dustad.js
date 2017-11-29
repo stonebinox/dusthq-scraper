@@ -70,7 +70,7 @@ app.controller("emails",function($scope,$compile,$http){
         .then(function success(response){
             response=response.data;
             if(!isNaN(response)){
-                console.log(response);
+                console.log(response[0]);
                 response=parseInt(response);
                 $scope.emailsCount=response;
             }
@@ -81,5 +81,8 @@ app.controller("emails",function($scope,$compile,$http){
         function error(response){
             console.log(response);
         });
+    };
+    $scope.showEmailForm=function(){
+        var text='<form><div class="'
     };
 });
