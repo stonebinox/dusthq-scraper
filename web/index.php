@@ -104,6 +104,9 @@ $app->get("/stanford/{page}/{search}",function($page,$search) use($app){
         }
         echo "Moving onto the next page ...";
         $page+=1;
+        return '<script type="text/javascript">
+        window.location="stanford/'.$page.'/'.$search.'";
+        </script>';
         return $app->redirect("/stanford/".$page."/".$search);
     }
     else
@@ -134,6 +137,9 @@ $app->get("/stanford/{page}/{search}",function($page,$search) use($app){
         $mid=$alpha[$midpos];
         $first=$alpha[$firstpos];
         $search=$first.$mid.$last;
+        return '<script type="text/javascript">
+        window.location="stanford/1/'.$search.'";
+        </script>';
         return $app->redirect("/stanford/1/".$search);
     }
 });
