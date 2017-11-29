@@ -134,6 +134,7 @@ $app->get("/stanford/{page}/{search}",function($page,$search) use($app){
         $mid=$alpha[$midpos];
         $first=$alpha[$firstpos];
         $search=$first.$mid.$last;
+        return $search;
         return $app->redirect("/stanford/1/".$search);
     }
 });
