@@ -83,6 +83,9 @@ app.controller("emails",function($scope,$compile,$http){
         });
     };
     $scope.showEmailForm=function(){
-        var text='<form><div class="'
+        var text='<form><div class="form-group"><label for="email">Email body</label><div id="froala-editor"></div></div><div class="text-center"><button type="button" class="btn btn-primary">Send</button></div></form>';
+        messageBox("Compose Email",text);
+        $('div#froala-editor').froalaEditor({
+        });
     };
 });
