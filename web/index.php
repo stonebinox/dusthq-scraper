@@ -114,6 +114,7 @@ $app->get("/stanford/{page}/{search}",function($page,$search) use($app){
         $mid=$sp[1];
         $first=$sp[0];
         $pos=strpos($last,$alpha)+1;
+        echo $pos;
         $midpos=strpos($mid,$alplha);
         $firstpos=strpos($first,$alpha);
         if($pos>=strlen($alpha))
