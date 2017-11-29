@@ -111,13 +111,11 @@ $app->get("/stanford/{page}/{search}",function($page,$search) use($app){
         $alpha='abcdefghijklmnopqrstuvwxyz';
         $sp=str_split($search);
         $last=$sp[2];
-        echo $last;
         $mid=$sp[1];
         $first=$sp[0];
-        $pos=strpos($last,$alpha)+1;
-        echo $pos;
-        $midpos=strpos($mid,$alplha);
-        $firstpos=strpos($first,$alpha);
+        $pos=strpos($alpha,$last)+1;
+        $midpos=strpos($alpha,$mid);
+        $firstpos=strpos($alpha,$first);
         if($pos>=strlen($alpha))
         {
             $pos=0;
