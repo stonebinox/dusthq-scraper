@@ -87,8 +87,7 @@ app.controller("emails",function($scope,$compile,$http){
         var options = {
             debug: 'info',
             placeholder: 'Compose an email ...',
-            readOnly: false,
-            theme: 'snow'
+            readOnly: false
         };
         var editor = new Quill('.editor',options);
     };
