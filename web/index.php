@@ -69,7 +69,11 @@ $app->get("/getEmailsCount",function() use($app){
         require("../classes/emailMaster.php");
         $email=new emailMaster;
         $emailCount=$email->countEmailIDs($app['session']->get("ins_id"));
-        return $emailCount;
+        $count=json_decode($emailCount,false);
+        foreach($count as $item)
+        {
+            return $item;
+        }
     }
     else
     {
