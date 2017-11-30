@@ -93,6 +93,6 @@ app.controller("emails",function($scope,$compile,$http){
             },
             theme: "snow"
         };
-        var editor = new Quill('.editor',options);
+        var editor = new Quill('#editor',options);
     };
 });
