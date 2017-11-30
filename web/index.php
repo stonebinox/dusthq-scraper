@@ -82,6 +82,7 @@ $app->get("/stanford/{page}/{search}",function($page,$search) use($app){
     $email=new emailMaster;
     $count=$email->countEmailIDs(1);
     $count=json_decode($count,false);
+    print_r($count);
     $chars='abcdefghijklmnopqrstuvwxyz';
     $url='https://profiles.stanford.edu/proxy/api/cap/search/keyword?p='.$page.'&q='.$search.'&ps=10';
     $json=file_get_contents($url);
