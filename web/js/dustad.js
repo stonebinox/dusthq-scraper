@@ -82,15 +82,14 @@ app.controller("emails",function($scope,$compile,$http){
         });
     };
     $scope.showEmailForm=function(){
-        var text='<form><div class="form-group"><label for="email">Email body</label><div class="editor"></div></div><div class="text-center"><button type="button" class="btn btn-primary">Send</button></div></form>';
+        var text='<form><div class="form-group"><label for="email">Email body</label><div id="toolbar"></div><div class="editor"></div></div><div class="text-center"><button type="button" class="btn btn-primary">Send</button></div></form>';
         messageBox("Compose Email",text);
         var options = {
             debug: 'info',
             placeholder: 'Compose an email ...',
             readOnly: false,
-            theme: 'snow',
             modules: {
-                toolbar: false    // Snow includes toolbar by default
+                toolbar: "toolbar"    // Snow includes toolbar by default
             },
         };
         var editor = new Quill('.editor',options);
