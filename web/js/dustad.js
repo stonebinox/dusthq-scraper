@@ -89,7 +89,11 @@ app.controller("emails",function($scope,$compile,$http){
             placeholder: 'Compose an email ...',
             readOnly: false,
             modules: {
-                toolbar: null    // Snow includes toolbar by default
+                toolbar: [
+                    [{ header: [1, 2, false] }],
+                    ['bold', 'italic', 'underline'],
+                    ['image', 'code-block']
+                ]
             },
             theme: "snow"
         };
