@@ -80,8 +80,9 @@ $app->get("/stanford/{page}/{search}",function($page,$search) use($app){
     require("../classes/instituteMaster.php");
     require("../classes/emailMaster.php");
     $email=new emailMaster;
+    $count=$email->countEmailIDs(1);
+    var_dump($count);
     $chars='abcdefghijklmnopqrstuvwxyz';
-//    $search='aac';
     $url='https://profiles.stanford.edu/proxy/api/cap/search/keyword?p='.$page.'&q='.$search.'&ps=10';
     $json=file_get_contents($url);
     $json=json_decode($json,true);
@@ -107,7 +108,6 @@ $app->get("/stanford/{page}/{search}",function($page,$search) use($app){
         return '<script type="text/javascript">
         window.location="https://dusthq-scraper.herokuapp.com/stanford/'.$page.'/'.$search.'";
         </script>';
-        return $app->redirect("/stanford/".$page."/".$search);
     }
     else
     {
@@ -140,7 +140,6 @@ $app->get("/stanford/{page}/{search}",function($page,$search) use($app){
         return '<script type="text/javascript">
         window.location="https://dusthq-scraper.herokuapp.com/stanford/1/'.$search.'";
         </script>';
-        return $app->redirect("/stanford/1/".$search);
     }
 });
 $app->run();
