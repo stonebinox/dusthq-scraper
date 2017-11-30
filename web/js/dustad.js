@@ -82,7 +82,7 @@ app.controller("emails",function($scope,$compile,$http){
         });
     };
     $scope.showEmailForm=function(){
-        var text='<form><div class="form-group"><label for="email">Email body</label><div class="editor"></div></div><div class="text-center"><button type="button" class="btn btn-primary">Send</button></div></form>';
+        var text='<form><div class="form-group"><label for="email">Email body</label><div id="editor"></div></div><div class="text-center"><button type="button" class="btn btn-primary">Send</button></div></form>';
         messageBox("Compose Email",text);
         var options = {
             debug: 'info',
