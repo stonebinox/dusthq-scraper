@@ -208,6 +208,7 @@ class emailMaster extends instituteMaster
                             $idEmail=$email['idemail_master'];*/
                             $emailID='anoop.santhanam@gmail.com';
                             $name='Anoop';
+                            $idEmail=1;
                             $body='<p>Hello '.$name.'!</p>'.$content;
                             $to = new SendGrid\Email($name, $emailID);
                             $emailBody = new SendGrid\Content("text/html", $body);
