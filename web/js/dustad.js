@@ -75,14 +75,16 @@ app.controller("emails",function($scope,$compile,$http){
             }
             else{
                 console.log(response);
+                messageBox("Problem","Something went wrong while getting email information. Please try again later. This is the error we see: "+response);
             }            
         },
         function error(response){
             console.log(response);
+            messageBox("Problem","Something went wrong while getting email information. Please try again later.");
         });
     };
     $scope.showEmailForm=function(){
-        var text='<form><div class="form-group"><label for="email">Email body</label><div id="editor"></div></div><div class="text-center"><button type="button" class="btn btn-primary">Send</button></div></form>';
+        var text='<form><div class="form-group"><label for="email">Email body</label><div id="editor"></div></div><div class="text-center"><button type="button" class="btn btn-primary" ng-click="sendEmail()">Send</button></div></form>';
         messageBox("Compose Email",text);
         var options = {
             debug: 'info',
@@ -98,5 +100,10 @@ app.controller("emails",function($scope,$compile,$http){
             theme: "snow"
         };
         var editor = new Quill('#editor',options);
+        $compile("#myModal")($scope);
+    };
+    $scope.sendEmail=function(){
+        var content=$.trim(quill.getContents());
+        console.log(content);
     };
 });
