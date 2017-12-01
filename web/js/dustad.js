@@ -114,6 +114,6 @@ app.controller("emails",function($scope,$compile,$http){
         var content=$scope.editor.getContents();
         var change=new Delta();
         change=change.compose(content);
-        console.log(change);
+        console.log($(".ql-editor").html());
     };
 });
