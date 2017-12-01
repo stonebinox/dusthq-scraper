@@ -216,7 +216,8 @@ class emailMaster extends instituteMaster
                             $apiKey = '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';
                             $sg = new \SendGrid($apiKey);
                             $response = $sg->client->mail()->send()->post($mail);
-                            $emailresponse=$this->addEmailHistory($idEmail,$subject,$body);
+                            $history=new emailHistoryMaster;
+                            $emailresponse=$history->addEmailHistory($idEmail,$subject,$body);
                         //}
                         //return "EMAILED_".count($emails);
                         return "DONE";
