@@ -95,6 +95,15 @@ $app->post("/sendEmail",function(Request $request) use($app){
         return "INVALID_PARAMETERS";
     }
 });
+$app->get("/unsubscribe/{emailID}",function($emailID){
+    require("../classes/instituteMaster.php");
+    require("../classes/emailMaster.php");
+    require("../classes/emailHistoryMaster.php");
+    require("../classes/unsubscribeMaster.php");
+    $unsub=new unsubscribeMaster;
+    $response=$unsub->unsubscribeEmail($emailID);
+    return $response;
+});
 $app->get("/stanford/{page}/{search}",function($page,$search) use($app){
     require("../classes/instituteMaster.php");
     require("../classes/emailMaster.php");

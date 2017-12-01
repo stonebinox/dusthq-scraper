@@ -206,7 +206,7 @@ class emailMaster extends instituteMaster
                             $emailID=$email['email_id'];
                             $name=stripslashes($email['emailee_name']);
                             $idEmail=$email['idemail_master'];
-                            $body='<p>Hello '.$name.'!</p>'.$content;
+                            $body='<p>Hello '.$name.'!</p>'.$content.'<p style="font-size:10px;color:#666666;"><a href="https://dusthq-scraper.herokuapp.com/unsubscribe/'.$idEmail.'">Click here</a> to unsubscribe from these emails.</p>';
                             $to = new SendGrid\Email($name, $emailID);
                             $emailBody = new SendGrid\Content("text/html", $body);
                             $mail = new SendGrid\Mail($from, $subject, $to, $emailBody);
