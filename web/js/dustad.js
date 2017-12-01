@@ -8,7 +8,7 @@ app.controller("emails",function($scope,$compile,$http){
     $scope.emailsCount=0;
     $scope.getEmails=function(){
         if($scope.offset==0){
-            $("#emaillist").html('<div class="text-center"><img src="images/ripple.gif" alt="Loading" width=30 height=30></div>');
+            $("#emaillist").html('<div class="text-center"><img src="../images/ripple.gif" alt="Loading" width=30 height=30></div>');
         }
         $http.get("../getEmails?offset="+$scope.offset)
         .then(function success(response){
