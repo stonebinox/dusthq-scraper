@@ -6,6 +6,7 @@ app.controller("emails",function($scope,$compile,$http){
     $scope.emailList=[];
     $scope.offset=0;
     $scope.emailsCount=0;
+    $scope.editor=null;
     $scope.getEmails=function(){
         if($scope.offset==0){
             $("#emaillist").html('<div class="text-center"><img src="../images/ripple.gif" alt="Loading" width=30 height=30></div>');
@@ -105,11 +106,11 @@ app.controller("emails",function($scope,$compile,$http){
             },
             theme: "snow"
         };
-        var editor = new Quill('#editor',options);
+        $scope.editor = new Quill('#editor',options);
         $compile("#myModal")($scope);
     };
     $scope.sendEmail=function(){
-        var content=$.trim(quill.getContents());
+        var content=$.trim($scope.editor.getContents());
         console.log(content);
     };
 });
