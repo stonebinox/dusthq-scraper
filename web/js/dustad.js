@@ -110,7 +110,7 @@ app.controller("emails",function($scope,$compile,$http){
         $compile("#myModal")($scope);
     };
     $scope.sendEmail=function(){
-        var content=$.trim($scope.editor.getContents());
+        var content=$scope.editor.getContents();
         console.log(content);
     };
 });
