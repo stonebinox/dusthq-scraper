@@ -88,9 +88,13 @@ class emailMaster extends instituteMaster
         {
             $app=$this->app;
             $offset=addslashes(htmlentities($offset));
-            if(($offset!="")&&($offset!=NULL)&&(is_numeric($offset))&&($offset>=0))
+            if(($offset!="")&&($offset!=NULL)&&(is_numeric($offset))&&($offset>=-1))
             {
-                $em="SELECT idemail_master FROM email_master WHERE stat='1' AND institute_master_idinstitute_master='$insID' ORDER BY idemail_master DESC LIMIT $offset,100";
+                $em="SELECT idemail_master FROM email_master WHERE stat='1' AND institute_master_idinstitute_master='$insID' ORDER BY idemail_master";
+                if($offset!=-1)
+                {
+                    $em.=" DESC LIMIT $offset,100";
+                }
                 $em=$app['db']->fetchAll($em);
                 $emailArray=array();
                 for($i=0;$i<count($em);$i++)
@@ -197,7 +201,7 @@ class emailMaster extends instituteMaster
                 if(($subject!="")&&($subject!=NULL))
                 {
                     $from = new SendGrid\Email("Dust", "dust@dusthq.com");
-                    $emails=$this->getEmails($insID);
+                    $emails=$this->getEmails($insID,-1);
                     if(is_array($emails))
                     {
                         for($i=0;$i<count($emails);$i++)
