@@ -127,7 +127,29 @@ app.controller("emails",function($scope,$compile,$http){
                         messageBox("Problem","Something went wrong while sending your emails. Please try again later.");
                     },
                     success:function(response){
-                        console.log(response);
+                        response=$.trim(response);
+                        switch(response){
+                            case "INVALID_PARAMETERS":
+                            default:
+                            if(response.indexOf("EMAILED_")!=-1){
+                                var sp=response.split("EMAILED_");
+                                var count=$.trim(sp[1]);
+                                messageBox("Emailed",count+' people were emailed successfully.');
+                            }
+                            else{
+                                messageBox("Problem","Something went wrong while trying to email. This is the error we see: "+response);
+                            }
+                            break;
+                            case "INVALID_INSTITUTE_ID":
+                            messageBox("Invalid Page","This page is invalid.");
+                            break;
+                            case "INVALID_MAIL_CONTENT":
+                            messageBox("Invalid Content","Please enter some valid content before emailing.");
+                            break;
+                            case "INVALID_SUBJECT":
+                            messageBox("Invalid Subject","Please enter a valid subject line.");
+                            break;
+                        }
                     },
                     beforeSend:function(){
                         messageBox("Send Emails","Please wait till everyone is emailed ...");
