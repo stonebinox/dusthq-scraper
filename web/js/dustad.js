@@ -110,6 +110,7 @@ app.controller("emails",function($scope,$compile,$http){
         $compile("#myModal")($scope);
     };
     $scope.sendEmail=function(){
+        var Delta = Quill.import('delta');
         var content=$scope.editor.getContents();
         var change=new Delta();
         change=change.compose(content);
