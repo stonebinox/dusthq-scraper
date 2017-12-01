@@ -115,6 +115,7 @@ app.controller("emails",function($scope,$compile,$http){
             $("#sub").parent().removeClass("has-error");
             var content=$.trim($(".ql-editor").html());
             if(validate(content)){
+                $("#myModal").modal("hide");
                 $.ajax({
                     url: '../sendEmail',
                     method: 'post',
@@ -130,7 +131,6 @@ app.controller("emails",function($scope,$compile,$http){
                         console.log(response);
                     },
                     beforeSend:function(){
-                        $("#myModal").modal("hide");
                         messageBox("Send Emails","Please wait till everyone is emailed ...");
                     }
                 });
