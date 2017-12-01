@@ -76,5 +76,29 @@ class unsubscribeMaster extends emailHistoryMaster
             return "INVALID_EMAIL_ID";
         }
     }
+    function checkSubscription($emailID)
+    {
+        $emailID=addslashes(htmlentiites($emailID));
+        emailMaster::__construct($emailID);
+        if($this->emailValid)
+        {
+            $app=$this->app;
+            $um="SELECT idunsubscribe_master FROM unsubscribe_master WHERE stat='1' AND email_master_idemail_master='$emailID'";
+            $um=$app['db']->fetchAssoc($um);
+            if(($um!="")&&($um!=NULL))
+            {
+                return "UNSUBSCRIBED";
+            }
+            else
+            {
+                return "SUBSCRIBED";
+            }
+        }
+        else
+        {
+            return "INVALID_EMAIL_ID";
+        }
+
+    }
 }
 ?>

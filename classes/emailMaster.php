@@ -206,15 +206,19 @@ class emailMaster extends instituteMaster
                             $emailID=$email['email_id'];
                             $name=stripslashes($email['emailee_name']);
                             $idEmail=$email['idemail_master'];
-                            $body='<p>Hello '.$name.'!</p>'.$content.'<p style="font-size:10px;color:#666666;"><a href="https://dusthq-scraper.herokuapp.com/unsubscribe/'.$idEmail.'">Click here</a> to unsubscribe from these emails.</p>';
-                            $to = new SendGrid\Email($name, $emailID);
-                            $emailBody = new SendGrid\Content("text/html", $body);
-                            $mail = new SendGrid\Mail($from, $subject, $to, $emailBody);
-                            $apiKey = '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';
-                            $sg = new \SendGrid($apiKey);
-                            $response = $sg->client->mail()->send()->post($mail);
-                            $history=new emailHistoryMaster;
-                            $emailresponse=$history->addEmailHistory($idEmail,$subject,$body);
+                            $unsub=new unsubscribeMaster;
+                            $sub=$unsub->checkSubscription($idEmail);
+                            if($sub=="SUBSCRIBED"){
+                                $body='<p>Hello '.$name.'!</p>'.$content.'<p style="font-size:10px;color:#666666;"><a href="https://dusthq-scraper.herokuapp.com/unsubscribe/'.$idEmail.'">Click here</a> to unsubscribe from these emails.</p>';
+                                $to = new SendGrid\Email($name, $emailID);
+                                $emailBody = new SendGrid\Content("text/html", $body);
+                                $mail = new SendGrid\Mail($from, $subject, $to, $emailBody);
+                                $apiKey = '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';
+                                $sg = new \SendGrid($apiKey);
+                                $response = $sg->client->mail()->send()->post($mail);
+                                $history=new emailHistoryMaster;
+                                $emailresponse=$history->addEmailHistory($idEmail,$subject,$body);
+                            }
                         }
                         return "EMAILED_".count($emails);
                     }
