@@ -200,11 +200,14 @@ class emailMaster extends instituteMaster
                     $emails=$this->getEmails($insID);
                     if(is_array($emails))
                     {
-                        for($i=0;$i<count($emails);$i++)
+                        /*for($i=0;$i<count($emails);$i++)
                         {
                             $email=$emails[$i];
                             $emailID=$email['email_id'];
                             $name=stripslashes($email['emailee_name']);
+                            $idEmail=$email['idemail_master'];*/
+                            $emailID='anoop.santhanam@gmail.com';
+                            $name='Anoop';
                             $body='<p>Hello '.$name.'!</p>'.$content;
                             $to = new SendGrid\Email($name, $emailID);
                             $emailBody = new SendGrid\Content("text/html", $body);
@@ -212,8 +215,10 @@ class emailMaster extends instituteMaster
                             $apiKey = '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';
                             $sg = new \SendGrid($apiKey);
                             $response = $sg->client->mail()->send()->post($mail);
-                        }
-                        return "EMAILED_".count($emails);
+                            $emailresponse=$this->addEmailHistory($idEmail,$subject,$body);
+                        //}
+                        //return "EMAILED_".count($emails);
+                        return "DONE";
                     }
                     else
                     {

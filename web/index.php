@@ -85,7 +85,8 @@ $app->post("/sendEmail",function(Request $request) use($app){
     {
         require("../classes/instituteMaster.php");
         require("../classes/emailMaster.php");
-        $email=new emailMaster;
+        require("../classes/emailHistoryMaster.php");
+        $email=new emailHistoryMaster;
         $response=$email->sendEmail($app['session']->get("ins_id"),$request->get("subject"),$request->get("content"));
         return $response;
     }
