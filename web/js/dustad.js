@@ -91,7 +91,7 @@ app.controller("emails",function($scope,$compile,$http){
         });
     };
     $scope.showEmailForm=function(){
-        var text='<form><div class="form-group"><label for="email">Email body</label><div id="editor"></div></div><div class="text-center"><button type="button" class="btn btn-primary" ng-click="sendEmail()">Send</button></div></form>';
+        var text='<form><div class="form-group"><label for="sub">Subject</label><input type="text" class="form-control" name="sub" id="sub" placeholder="Subject of your email"></div><div class="form-group"><label for="email">Email body</label><div id="editor"></div></div><div class="text-center"><button type="button" class="btn btn-primary" ng-click="sendEmail()">Send</button></div></form>';
         messageBox("Compose Email",text);
         var options = {
             debug: 'info',
@@ -99,7 +99,7 @@ app.controller("emails",function($scope,$compile,$http){
             readOnly: false,
             modules: {
                 toolbar: [
-                    ['bold', 'italic'],
+                    ['bold', 'italic', 'underline'],
                     ['link', 'blockquote', 'code-block', 'image'],
                     [{ list: 'ordered' }, { list: 'bullet' }]
                 ]
@@ -110,7 +110,37 @@ app.controller("emails",function($scope,$compile,$http){
         $compile("#myModal")($scope);
     };
     $scope.sendEmail=function(){
-        var content=$.trim($(".ql-editor").html());
-        console.log(content);
+        var sub=$.trim($("#sub").val());
+        if(validate(sub)){
+            $("#sub").parent().removeClass("has-error");
+            var content=$.trim($(".ql-editor").html());
+            if(validate(content)){
+                $.ajax({
+                    url: '../sendEmail',
+                    method: 'post',
+                    data: {
+                        subject: sub,
+                        content: content
+                    },
+                    error: function(err){
+                        console.log(err);
+                        messageBox("Problem","Something went wrong while sending your emails. Please try again later.");
+                    },
+                    success:function(response){
+                        console.log(response);
+                    },
+                    beforeSend:function(){
+                        $("#myModal").modal("hide");
+                        messageBox("Send Emails","Please wait till everyone is emailed ...");
+                    }
+                });
+            }
+            else{
+                alert("Please enter some content to send.");
+            }
+        }
+        else{
+            $("#sub").parent().addClass("has-error");
+        }        
     };
 });

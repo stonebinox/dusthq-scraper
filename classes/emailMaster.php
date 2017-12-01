@@ -183,5 +183,60 @@ class emailMaster extends instituteMaster
             return "INVALID_INSTITUTE_ID";
         }
     }
+    function sendEmail($insID,$subject,$content)
+    {
+        $app=$this->app;
+        $insID=addslashes(htmlentities($insID));
+        instituteMaster::__construct($insID);
+        if($this->instituteValid)
+        {
+            $content=trim($content);
+            if(($content!="")&&($content!=NULL))
+            {
+                $subject=trim($subject);
+                if(($subject!="")&&($subject!=NULL))
+                {
+                    $from = new SendGrid\Email("Dust", "dust@dusthq.com");
+                    $emails=$this->getEmails($insID);
+                    if(is_array($emails))
+                    {
+                        /*for($i=0;$i<count($emails);$i++)
+                        {
+                            $email=$emails[$i];
+                            $emailID=$email['email_id'];
+                            $name=stripslashes($email['emailee_name']);*/
+                            $emailID='anoop.santhanam@gmail.com';
+                            $name='Anoop';
+                            $body='<p>Hello '.$name.'!</p>'.$content;
+                            $to = new SendGrid\Email($name, $emailID);
+                            $emailBody = new SendGrid\Content("text/plain", $body);
+                            $mail = new SendGrid\Mail($from, $subject, $to, $emailBody);
+                            $apiKey = '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';
+                            $sg = new \SendGrid($apiKey);
+                            $response = $sg->client->mail()->send()->post($mail);
+                        /*}
+                        return "EMAILED_".count($emails);*/
+                        return "DONE";
+                    }
+                    else
+                    {
+                        return $emails;
+                    }
+                }
+                else
+                {
+                    return "INVALID_SUBJECT";
+                }
+            }
+            else
+            {
+                return "INVALID_MAIL_CONTENT";
+            }
+        }
+        else
+        {
+            return "INVALID_INSTITUTE_ID";
+        }
+    }
 }
 ?>

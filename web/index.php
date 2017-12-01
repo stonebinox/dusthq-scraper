@@ -80,6 +80,20 @@ $app->get("/getEmailsCount",function() use($app){
         return "INVALID_PARAMETERS";
     }
 });
+$app->post("/sendEmail",function(Request $request) use($app){
+    if(($app['session']->get("ins_id"))&&($request->get("content"))&&($request->get("subject")))
+    {
+        require("../classes/instituteMaster.php");
+        require("../classes/emailMaster.php");
+        $email=new emailMaster;
+        $response=$email->sendEmail($app['session']->get("ins_id"),$request->get("subject"),$request->get("content"));
+        return $response;
+    }
+    else
+    {
+        return "INVALID_PARAMETERS";
+    }
+});
 $app->get("/stanford/{page}/{search}",function($page,$search) use($app){
     require("../classes/instituteMaster.php");
     require("../classes/emailMaster.php");
