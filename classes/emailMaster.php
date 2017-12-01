@@ -209,7 +209,7 @@ class emailMaster extends instituteMaster
                             $name='Anoop';
                             $body='<p>Hello '.$name.'!</p>'.$content;
                             $to = new SendGrid\Email($name, $emailID);
-                            $emailBody = new SendGrid\Content("text/plain", $body);
+                            $emailBody = new SendGrid\Content("text/html", $body);
                             $mail = new SendGrid\Mail($from, $subject, $to, $emailBody);
                             $apiKey = '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';
                             $sg = new \SendGrid($apiKey);
