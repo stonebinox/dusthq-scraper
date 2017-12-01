@@ -99,9 +99,9 @@ app.controller("emails",function($scope,$compile,$http){
             readOnly: false,
             modules: {
                 toolbar: [
-                    [{ header: [1, 2, false] }],
-                    ['bold', 'italic', 'underline'],
-                    ['image', 'code-block']
+                    ['bold', 'italic'],
+                    ['link', 'blockquote', 'code-block', 'image'],
+                    [{ list: 'ordered' }, { list: 'bullet' }]
                 ]
             },
             theme: "snow"
@@ -110,10 +110,7 @@ app.controller("emails",function($scope,$compile,$http){
         $compile("#myModal")($scope);
     };
     $scope.sendEmail=function(){
-        var Delta = Quill.import('delta');
-        var content=$scope.editor.getContents();
-        var change=new Delta();
-        change=change.compose(content);
-        console.log($(".ql-editor").html());
+        var content=$.trim($(".ql-editor").html());
+        console.log(content);
     };
 });
