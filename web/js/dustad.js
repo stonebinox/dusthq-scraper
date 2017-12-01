@@ -111,6 +111,8 @@ app.controller("emails",function($scope,$compile,$http){
     };
     $scope.sendEmail=function(){
         var content=$scope.editor.getContents();
-        console.log(content);
+        var change=new Delta();
+        change=change.compose(content);
+        console.log(change);
     };
 });
