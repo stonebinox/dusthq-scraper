@@ -78,7 +78,7 @@ class unsubscribeMaster extends emailHistoryMaster
     }
     function checkSubscription($emailID)
     {
-        $emailID=addslashes(htmlentiites($emailID));
+        $emailID=addslashes(htmlentities($emailID));
         emailMaster::__construct($emailID);
         if($this->emailValid)
         {
