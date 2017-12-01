@@ -115,7 +115,6 @@ app.controller("emails",function($scope,$compile,$http){
             $("#sub").parent().removeClass("has-error");
             var content=$.trim($(".ql-editor").html());
             if(validate(content)){
-                $("#myModal").modal("hide");
                 $.ajax({
                     url: '../sendEmail',
                     method: 'post',
