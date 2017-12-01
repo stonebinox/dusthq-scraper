@@ -127,6 +127,7 @@ app.controller("emails",function($scope,$compile,$http){
                         messageBox("Problem","Something went wrong while sending your emails. Please try again later.");
                     },
                     success:function(response){
+                        console.log(response);
                         response=$.trim(response);
                         switch(response){
                             case "INVALID_PARAMETERS":
